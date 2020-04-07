@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Fasetto.Word.SideMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fasetto.Word"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <!--In order to have sub-content inside the user control wrap it in usercontrol template-->
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <!--Main background-->
+            <Border Background="{StaticResource ForegroundLightBrush}">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!--Top icon buttons-->
+                        <RowDefinition Height="Auto"/>
+                        <!--Content presenter-->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Top menu-->
+                    <Grid Grid.Row="0" Height="50" Background="{StaticResource WordBlueBrush}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <!--empty space between icon buttons-->
+                            <ColumnDefinition Width="*"/>
+                            <!--Config icon btn-->
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Main buttons-->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeChatIcon}"/>
+                            <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeUserIcon}"/>
+                            <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomePictureIcon}"/>
+                        </StackPanel>
+
+                        <!--Config button-->
+                        <Button Grid.Column="2" Foreground="{StaticResource WordDarkBlueBrush}" Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeConfigIcon}"/>
+
+
+                    </Grid>
+
+                    <!--injects the content that the user selects -->
+                    <!--The contentPresenter was possible we wraped it in usercontrol template-->
+                    <ContentPresenter Grid.Row="1"/>
+
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+    
+
+</UserControl>
