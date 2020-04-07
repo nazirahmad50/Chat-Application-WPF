@@ -1,4 +1,5 @@
 ﻿
+using Fasetto.Word.Core;
 using System.Windows;
 
 

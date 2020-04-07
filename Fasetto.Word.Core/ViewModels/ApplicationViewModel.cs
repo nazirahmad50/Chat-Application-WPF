@@ -4,10 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fasetto.Word.Core.ViewModels
+namespace Fasetto.Word.Core
 {
-
-    public class ApplicationViewModel
+    /// <summary>
+    /// The view model for the whole application
+    /// The applciation state as a view model
+    /// </summary>
+    public class ApplicationViewModel : BaseViewModel
     {
+        #region Properties
+
+        /// <summary>
+        /// The current page of the applicaiton
+        /// </summary>
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
+
+        #endregion
     }
 }

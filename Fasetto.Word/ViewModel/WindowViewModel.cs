@@ -94,10 +94,6 @@ namespace Fasetto.Word
 
         public Thickness InnerContentPadding { get { return new Thickness(0); } }
 
-        /// <summary>
-        /// The current page of the applicaiton
-        /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
         #endregion
 
         #region Commands

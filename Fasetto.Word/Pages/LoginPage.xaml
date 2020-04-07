@@ -46,7 +46,7 @@
 
                     </Border>
 
-                    <Button Style="{StaticResource SubTextButton}" Content="I dont have an account" HorizontalAlignment="Center"/>
+                    <Button Command="{Binding RegisterCommand}" Style="{StaticResource SubTextButton}" Content="I dont have an account" HorizontalAlignment="Center"/>
 
                 </StackPanel>
             </ScrollViewer>

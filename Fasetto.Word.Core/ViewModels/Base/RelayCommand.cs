@@ -9,11 +9,11 @@ namespace Fasetto.Word.Core
 {
     public class RelayCommand : ICommand
     {
-        private Action mAction;
+        private Action action;
 
         public RelayCommand(Action action)
         {
-            mAction = action;
+            this.action = action;
 
         }
         public event EventHandler CanExecuteChanged;
@@ -32,7 +32,7 @@ namespace Fasetto.Word.Core
         /// </summary>
         public void Execute(object parameter)
         {
-            mAction();
+            action();
         }
     }
 }
