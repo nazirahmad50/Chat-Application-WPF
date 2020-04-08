@@ -69,10 +69,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Animations\PageAnimation.cs" />
+    <Compile Include="Animations\FrameWorkElementAnimations.cs" />
     <Compile Include="Animations\PageAnimations.cs" />
     <Compile Include="Animations\StoryBoardHelpers.cs" />
     <Compile Include="AttatchedProperties\BaseAttatchedProperty.cs" />
     <Compile Include="AttatchedProperties\ButtonAttatchedProperty.cs" />
+    <Compile Include="AttatchedProperties\FrameWorkElementAnimationAttatchedProperties.cs" />
     <Compile Include="AttatchedProperties\PasswordAttatchedBoxProperties.cs" />
     <Compile Include="Controls\Chat\ChatListControl.xaml.cs">
       <DependentUpon>ChatListControl.xaml</DependentUpon>

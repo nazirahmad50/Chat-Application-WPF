@@ -20,7 +20,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--Outer border with the drop shadow margin-->
-                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+                        <Border Margin="{Binding OuterMarginSizeThickness, FallbackValue=10}">
                             
                             <!--Main window outline-->
                             <Grid>
@@ -114,8 +114,8 @@
                                         </Border.Background>
                                     </Border>-->
 
-                                    <!--Page content-->
-                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                    <!--Page content (the stuff thats after the WindowChrome tag is the content stuff)-->
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}"/>
                                     </Border>
                                     
@@ -145,7 +145,7 @@
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
 
             </Grid.ColumnDefinitions>
@@ -157,12 +157,14 @@
             </Grid.Background>
             
             <!--used local instead of staticResource because the 'ApplicationPageValueConverter' inherits from 'MarkupExtension' -->
+            <!--have to use the 'ViewModelLocator' otherwise we had to create an instance of 'ApplicationViewModel' inside this MainWindow class -->
             <Frame Grid.Column="1" 
                    x:Name="MainFrame" 
                    Content="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"/>
 
             <!--Side Menu-->
-            <local:SideMenuControl>
+            <local:SideMenuControl Width="300" 
+                                   local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.IsSideMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}">
                 <local:ChatListControl/>
             </local:SideMenuControl>
 
