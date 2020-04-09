@@ -10,9 +10,9 @@ using System.Windows.Input;
 namespace Fasetto.Word.Core
 {
     /// <summary>
-    /// View model for the login screen
+    /// View model for the register screen
     /// </summary>
-    public class LoginViewModel : BaseViewModel
+    public class RegisterViewModel : BaseViewModel
     {
 
         #region Public Properties
@@ -22,7 +22,7 @@ namespace Fasetto.Word.Core
         /// <summary>
         /// A flag indicating if the login command is running
         /// </summary>
-        public bool LoginIsRunning { get; set; }
+        public bool RegisterIsRunning { get; set; }
 
         #endregion
 
@@ -37,14 +37,14 @@ namespace Fasetto.Word.Core
         #endregion
 
         #region Constructor
-        public LoginViewModel()
+        public RegisterViewModel()
         {
 
             //create commands
             // you should not have to pass parameter to a command but for the password we have to
-            LoginCommand = new RelayParametarizedCommand(async (param) => await LoginAsync(param)); // Anonymous method for the argument
+            RegisterCommand = new RelayParametarizedCommand(async (param) => await RegisterAsync(param)); // Anonymous method for the argument
 
-            RegisterCommand = new RelayCommand(async () => await RegisterAsync()); // Anonymous method for the argument
+            LoginCommand = new RelayCommand(async () => await LoginAsync()); // Anonymous method for the argument
 
         }
 
@@ -52,36 +52,29 @@ namespace Fasetto.Word.Core
         #endregion
 
         /// <summary>
-        /// Attempts to log the userin
+        /// Attempts to register new the user
         /// </summary>
         /// <param name="param">The <see cref="SecureString"/> string passed in from the view</param>
         /// <returns></returns>
-        public async Task LoginAsync(object param)
+        public async Task RegisterAsync(object param)
         {
-            // '() => LoginIsRunning' is the lambda expresssion that we are passing
-            // if we didnt pass it as expression and passed it directly then we wouldnt be able to edit the properties value
-            // you cant pass property as 'ref' so '() => LoginIsRunning' is basically passing the property as ref
-            await RunCommand(() => LoginIsRunning, async () =>
+            await RunCommand(() => RegisterIsRunning, async () =>
             {
 
                 await Task.Delay(500);
 
-                // go to chat page
-                IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat);
-
-                //var pass = (param as IHavePassword).SecurePassword.Unsecure();
             });
         
         }
 
         /// <summary>
-        /// Takes the user to register page
+        /// Takes the user to login page
         /// </summary>
         /// <returns></returns>
-        public async Task RegisterAsync()
+        public async Task LoginAsync()
         {
+            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Login);
 
-            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Register);
 
             await Task.Delay(1);       
         }

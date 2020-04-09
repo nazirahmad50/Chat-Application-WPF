@@ -20,7 +20,7 @@ namespace Fasetto.Word
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class RegisterPage : BasePage<LoginViewModel>
+    public partial class RegisterPage : BasePage<RegisterViewModel>
     {
         public RegisterPage()
         {

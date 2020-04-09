@@ -8,16 +8,10 @@ using Fasetto.Word.Core;
 namespace Fasetto.Word
 {
     /// <summary>
-    /// generic base page for viewModels
+    /// The base page for all pages to gain base functionality
     /// </summary>
-    /// <typeparam name="VM"></typeparam>
-    public class BasePage<VM> : Page where VM : BaseViewModel, new()
+    public class BasePage : Page
     {
-        #region Private Member
-
-        private VM viewModel;
-
-        #endregion
 
         #region Public Properties
         /// <summary>
@@ -25,7 +19,7 @@ namespace Fasetto.Word
         /// </summary>
         public ePageAnimation PageLoadAnimation { get; set; } = ePageAnimation.SlideInAndFadeInFromRight;
 
-            
+
         /// <summary>
         /// The aniamtion to play when page first un loaded
         /// </summary>
@@ -34,7 +28,81 @@ namespace Fasetto.Word
         /// <summary>
         /// The time any slide aniamtion takes
         /// </summary>
-        public float SlideSeconds { get; set; } = 0.8f;
+        public float SlideSeconds { get; set; } = 0.4f;
+
+        /// <summary>
+        /// a flag that indicates if this page should animate out on load
+        /// useful for when moving the page to another page
+        /// </summary>
+        public bool ShouldAnimateOut { get; set; }
+        #endregion
+
+
+        #region Constructor
+
+        public BasePage()
+        {
+            // if we are animating in hide to begin with
+            // dont want page visible at start because we are animating it
+            if (PageLoadAnimation != ePageAnimation.None)
+                Visibility = Visibility.Collapsed;
+
+            Loaded += BasePage_LoadedAsync;
+        } 
+        #endregion
+
+        /// <summary>
+        /// Once the page is loaded, perform any required animation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void BasePage_LoadedAsync(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (ShouldAnimateOut)
+                await AnimateOutAsync();
+            else
+                await AnimateInAsync();
+        }
+
+        public async Task AnimateInAsync()
+        {
+            switch (PageLoadAnimation)
+            {
+                case ePageAnimation.SlideInAndFadeInFromRight:
+                    await this.SlideAndFadeInFromRight(SlideSeconds);
+                    break;
+                case ePageAnimation.None:
+                    return;
+            }
+        }
+
+        public async Task AnimateOutAsync()
+        {
+            switch (PageUnloadedAnimation)
+            {
+                case ePageAnimation.SlideInAndFadeOutToLeft:
+                    await this.SlideAndFadeOutToLeft(SlideSeconds);
+                    break;
+                case ePageAnimation.None:
+                    return;
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// generic base page with added viewModels
+    /// </summary>
+    /// <typeparam name="VM"></typeparam>
+    public class BasePage<VM> : BasePage where VM : BaseViewModel, new()
+    {
+        #region Private Member
+
+        private VM viewModel;
+
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
         /// The viewModel associated with this page
@@ -63,51 +131,12 @@ namespace Fasetto.Word
         #region Constructor
         public BasePage()
         {
-            // if we are animating in hide to begin with
-            // dont want page visible at start because we are animating it
-            if (PageLoadAnimation != ePageAnimation.None)
-                Visibility = Visibility.Collapsed;
-
-            Loaded += BasePage_LoadedAsync;
-
             // create default viewModel
             ViewModel = new VM();
         }
 
         #endregion
 
-        /// <summary>
-        /// Once the page is loaded, perform any required animation
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void BasePage_LoadedAsync(object sender, System.Windows.RoutedEventArgs e)
-        {
-            await AnimateInAsync();
-        }
-
-        public async Task AnimateInAsync()
-        {
-            switch (PageLoadAnimation)
-            {
-                case ePageAnimation.SlideInAndFadeInFromRight:
-                    await this.SlideAndFadeInFromRight(SlideSeconds);
-                    break;
-                case ePageAnimation.None:
-                    return;
-            }
-        }
-
-        public async Task AnimateOutAsync()
-        {
-            switch (PageUnloadedAnimation)
-            {
-                case ePageAnimation.SlideInAndFadeOutToLeft:
-                    await this.SlideAndFadeOutToLeft(SlideSeconds);
-                    break;
-                case ePageAnimation.None:
-                    return;
-            }
-        }
+      
     }
 }

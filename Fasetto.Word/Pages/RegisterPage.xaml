@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="core:LoginViewModel" x:Class="Fasetto.Word.RegisterPage"
+﻿<local:BasePage x:TypeArguments="core:RegisterViewModel" x:Class="Fasetto.Word.RegisterPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -35,10 +35,10 @@
                             <PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 0 0 30"/>
 
                             <Button 
-                                Command="{Binding LoginCommand}" 
+                                Command="{Binding RegisterCommand}" 
                                 CommandParameter="{Binding ElementName=Page}" 
                                 Content="Register" HorizontalAlignment="Center"
-                                local:IsBusyProperty.Value ="{Binding LoginIsRunning}"
+                                local:IsBusyProperty.Value ="{Binding RegisterIsRunning}"
                                 />
 
 
@@ -48,7 +48,7 @@
 
                     <Button Style="{StaticResource SubTextButton}" 
                             Content="I already have an account" HorizontalAlignment="Center"
-                            Command="{Binding RegisterCommand}"/>
+                            Command="{Binding LoginCommand}"/>
 
                 </StackPanel>
             </ScrollViewer>

@@ -158,9 +158,12 @@
             
             <!--used local instead of staticResource because the 'ApplicationPageValueConverter' inherits from 'MarkupExtension' -->
             <!--have to use the 'ViewModelLocator' otherwise we had to create an instance of 'ApplicationViewModel' inside this MainWindow class -->
-            <Frame Grid.Column="1" 
-                   x:Name="MainFrame" 
-                   Content="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"/>
+            <local:PageHost Grid.Column="1" 
+                   x:Name="MainFrame"
+                   DataContext="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}, Converter={local:ApplicationPageValueConverter}}"
+                   CurrentPage="{Binding}"/> <!--just 'Binding' will bind to the datacontext which will be the 'ApplicationViewModel.CurrentPage'-->
+
+
 
             <!--Side Menu-->
             <local:SideMenuControl Width="300" 
